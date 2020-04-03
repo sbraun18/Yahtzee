@@ -6,26 +6,35 @@ import java.util.Random;
  * This program plays one round of yahtzee
  * This is the hand class
  * CPSC 224, Spring 2020
- * Programming Assignment #1
+ * Programming Assignment #2
  * No sources to cite.
  *
  * @author Sophie Braun
- * 2/3/19
+ * 2/13/19
  */
 
 public class Hand {
-
-    private static int NUM_OF_DIE = 5;
-    private static ArrayList<Integer> yahtzee_hand = new ArrayList<Integer>();
+    Yahtzee game = new Yahtzee();
+    private int numDie = game.getNumDice();
+    private int numSides = game.getNumSides();
+    private ArrayList<Integer> yahtzee_hand = new ArrayList<Integer>();
 
     /**
      * constructor that fills an array list with rolled die
      */
     public Hand() {
         if (yahtzee_hand.isEmpty()) {
-            for (int i = 0; i < NUM_OF_DIE; i++)
+            for (int i = 0; i < numDie; i++)
                 yahtzee_hand.add(new Dice().get_sideOnTop());
         }
+    }
+
+    public ArrayList<Integer> getYahtzee_hand() {
+        return yahtzee_hand;
+    }
+
+    public void setYahtzee_hand(ArrayList<Integer> yahtzee_hand) {
+        this.yahtzee_hand = yahtzee_hand;
     }
 
     /**
@@ -36,7 +45,7 @@ public class Hand {
     public ArrayList<Integer> rollDiceAgain(int index) {
         ArrayList<Integer> new_hand = yahtzee_hand;
         Random randRef = new Random();
-        int randRoll = randRef.nextInt(6) + 1;
+        int randRoll = randRef.nextInt(numSides + 0) + 1;
         new_hand.set(index, randRoll);
         return new_hand;
     }
@@ -46,7 +55,7 @@ public class Hand {
      * @return number of die
      */
     public int getNumDice() {
-        return NUM_OF_DIE;
+        return numDie;
     }
 
     /**
@@ -71,7 +80,7 @@ public class Hand {
     @Override
     public String toString() {
         String printedHand = "";
-        for (int i = 0; i < NUM_OF_DIE; i++) {
+        for (int i = 0; i < numDie; i++) {
             printedHand += yahtzee_hand.get(i) + " ";
         }
         return printedHand;
